@@ -14,24 +14,14 @@ app.post('/repos', function (req, res, next) {
   console.log('POST request received on server');
   controller.githubAPI.getData(req, res, next);
 }, function(req, res, next) {
-  res.status(200).send(req.body.data);
+  // res.status(200).send(req.body.data);
+  controller.githubFetcher.postData(req, res, next);
 });
 
 app.get('/repos', function (req, res, next) {
   // TODO - your code here!
   // This route should send back the top 25 repos
 });
-
-// app.post('/repos', function (req, res, next) {
-//   // TODO - your code here!
-//   // This route should take the github username provided
-//   // and get the repo information from the github API, then
-//   // save the repo information in the database
-//   console.log('POST request received on server');
-//   controller.githubAPI.getData(req, res, next);
-// }, function(req, res, next) {
-//   res.status(200).send(req.body.data);
-// });
 
 let port = 1128;
 
