@@ -14,13 +14,6 @@ module.exports.getReposById = (repoIdList, callback) => {
 
 module.exports.postData = (data, callback) => {
   data = transform.transformGitHubDataForDB(data);
-  // Repo.create(data, (err, res) => {
-  //   if (err) {
-  //     callback(err);
-  //   } else {
-  //     callback(null, res);
-  //   }
-  // });
   transform.deleteExistingRecordsForReposting(data, (err, data) => {
     if (err) {
       callback(err);
@@ -41,20 +34,18 @@ module.exports.deleteRepos = (_idsToDelete, callback) => {
     if (err) {
       callback(err);
     } else {
-      // console.log('---------------- module.exports.deleteRepos res:');
-      // console.log(res);
+      console.log(res);
       callback(null, res);
     }
   });
 };
 
-module.exports.patchRepos = (data, callback) => {
-  //
-  Repo.updateMany({_id: id}, data, (err, res) => {
-    if (err) {
-      callback(err);
-    } else {
-      callback(null, res);
-    }
-  });
-};
+// module.exports.patchRepos = (data, callback) => {
+//   Repo.updateMany({_id: id}, data, (err, res) => {
+//     if (err) {
+//       callback(err);
+//     } else {
+//       callback(null, res);
+//     }
+//   });
+// };

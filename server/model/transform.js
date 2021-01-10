@@ -37,24 +37,15 @@ module.exports.deleteExistingRecordsForReposting = (dataFromGitHub, callback) =>
       callback(err);
     } else {
       const _idsToDelete = [];
-      // const reposToAdd = [];
       for (var i = 0; i < dataFromGitHub.length; i++) {
         for (var j = 0; j < dataFromDb.length; j++) {
           if (dataFromGitHub[i].repoId === dataFromDb[j].repoId) {
             const _id = {_id: dataFromDb[j]._id};
             _idsToDelete.push(_id);
             break;
-          } // else if (j === dataFromDb.length - 1) {
-          //   reposToAdd.push(dataFromGitHub[i]);
-          //   break;
-          // }
+          }
         }
       }
-      // console.log('_idsToDelete:');
-      // console.log(_idsToDelete);
-      // // console.log('reposToAdd:');
-      // // console.log(reposToAdd);
-      // callback('forced error for testing');
       if (_idsToDelete.length > 0) {
         model.deleteRepos(_idsToDelete, (err, data) => {
           if (err) {
