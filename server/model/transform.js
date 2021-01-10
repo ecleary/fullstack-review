@@ -8,7 +8,7 @@ module.exports.transformGitHubDataForDB = data => {
       repoId: typeof dataPoint.id === 'string' ? dataPoint.id : dataPoint.id.toString(),
       info: {
         name: dataPoint.name,
-        description: dataPoint.description !== null ? dataPoint.description : 'NULL',
+        description: dataPoint.description !== null ? dataPoint.description : '[none provided]',
         url: dataPoint.html_url
       },
       owner: {

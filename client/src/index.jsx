@@ -15,7 +15,9 @@ class App extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   };
 
-  componentDidMount() {};
+  componentDidMount() {
+    this.getData();
+  };
 
   getData (callback) {
     $.ajax({
@@ -28,7 +30,7 @@ class App extends React.Component {
         if (callback) {
           callback(data);
         } else {
-          console.log(data);
+          console.log(data); // temp?
         }
       },
       error: (err) => {
