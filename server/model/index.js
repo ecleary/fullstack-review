@@ -2,6 +2,24 @@ const database = require('../../database');
 const Repo = database.Repo;
 const transform = require('./transform.js');
 
+module.exports.getData = (callback) => {
+  Repo.find({}, (err, res) => {
+    if (err) {
+      callback(err);
+    } else {
+      const data = transform.filterTop25Records(res);
+      callback(null, data);
+      // transform.filterTop25Records(res, (err, data) => {
+      //   if (err) {
+      //     callback(err);
+      //   } else {
+      //     callback(null, data);
+      //   }
+      // });
+    }
+  });
+};
+
 module.exports.getReposById = (repoIdList, callback) => {
   Repo.find({$or: repoIdList}, (err, res) => {
     if (err) {

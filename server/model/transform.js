@@ -60,3 +60,22 @@ module.exports.deleteExistingRecordsForReposting = (dataFromGitHub, callback) =>
     }
   });
 };
+
+module.exports.filterTop25Records = (data) => {
+  let sortedData = data.slice();
+  sortedData.sort((record1, record2) => {
+    const stats1 = record1.stats;
+    const stats2 = record2.stats;
+    const total1 = stats1.stargazersCount + stats1.watchersCount + stats1.forksCount;
+    const total2 = stats2.stargazersCount + stats2.watchersCount + stats2.forksCount;
+    if (total1 < total2) {
+      return 1;
+    } else if (total1 > total2) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+  sortedData = sortedData.slice(0, 25);
+  return sortedData;
+};

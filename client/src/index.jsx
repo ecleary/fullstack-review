@@ -9,10 +9,37 @@ class App extends React.Component {
     super(props);
     this.state = {
       repos: []
-    }
-    this.postData = this.postData.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
-  }
+    };
+    this.getData = this.getData.bind(this);
+    this.postData = this.postData.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+  };
+
+  componentDidMount() {};
+
+  getData (callback) {
+    $.ajax({
+      url: 'http://localhost:1128/repos',
+      method: 'GET',
+      success: (data) => {
+        this.setState({
+          repos: data
+        });
+        if (callback) {
+          callback(data);
+        } else {
+          console.log(data);
+        }
+      },
+      error: (err) => {
+        if (callback) {
+          callback(err);
+        } else {
+          console.error(err);
+        }
+      }
+    });
+  };
 
   postData (term, callback) {
     const data = {term};
@@ -40,7 +67,7 @@ class App extends React.Component {
   handleSearch (term, callback) {
     console.log(`${term} was searched`);
     this.postData(term, callback);
-  }
+  };
 
   render () {
     const {repos} = this.state;
@@ -48,8 +75,8 @@ class App extends React.Component {
       <h1>Github Fetcher</h1>
       <RepoList repos={repos}/>
       <Search onSearch={this.handleSearch}/>
-    </div>)
-  }
+    </div>);
+  };
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
