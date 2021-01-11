@@ -8,6 +8,7 @@ class Search extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
     this.clearInput = this.clearInput.bind(this);
   };
 
@@ -23,6 +24,13 @@ class Search extends React.Component {
     const {term} = this.state;
     const {onSearch} = this.props;
     onSearch(term, this.clearInput);
+  };
+
+  handleRemove(e) {
+    e.preventDefault();
+    const {term} = this.state;
+    const {onRemove} = this.props;
+    onRemove(term, this.clearInput);
   };
 
   clearInput(err) {
@@ -41,6 +49,7 @@ class Search extends React.Component {
       <h4>Add more repos!</h4>
       Enter a GitHub username: <input value={term} onChange={this.handleChange}/>
       <button onClick={this.handleSearch}> Add Repos </button>
+      <button onClick={this.handleRemove}> Remove Repos </button>
     </div>) ;
   };
 }

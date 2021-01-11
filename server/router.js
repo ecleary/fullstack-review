@@ -16,3 +16,6 @@ router.post('/repos', function (req, res, next) {
   controller.githubFetcher.postData(req, res, next);
 });
 
+router.delete('/repos', function (req, res, next) {
+  controller.githubFetcher.deleteData(req, res, next);
+});

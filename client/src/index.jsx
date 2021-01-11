@@ -13,6 +13,7 @@ class App extends React.Component {
     this.getData = this.getData.bind(this);
     this.postData = this.postData.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   };
 
   componentDidMount() {
@@ -67,9 +68,36 @@ class App extends React.Component {
     });
   };
 
+  deleteData (term, callback) {
+    const data = {term};
+    $.ajax({
+      url: 'http://localhost:1128/repos',
+      method: 'DELETE',
+      data: data,
+      success: (data) => {
+        if (callback) {
+          callback(null, data);
+        } else {
+          console.log(data);
+        }
+        this.getData();
+      },
+      error: (err) => {
+        if (callback) {
+          callback(err);
+        } else {
+          console.error(err);
+        }
+      }
+    });
+  };
+
   handleSearch (term, callback) {
-    // console.log(`${term} was searched`);
     this.postData(term, callback);
+  };
+
+  handleRemove (term, callback) {
+    this.deleteData(term, callback);
   };
 
   render () {
@@ -77,7 +105,7 @@ class App extends React.Component {
     return (<div>
       <h1>GitHub Fetcher</h1>
       <RepoList repos={repos}/>
-      <Search onSearch={this.handleSearch}/>
+      <Search onSearch={this.handleSearch} onRemove={this.handleRemove} />
     </div>);
   };
 }

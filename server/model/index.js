@@ -58,6 +58,17 @@ module.exports.deleteRepos = (_idsToDelete, callback) => {
   });
 };
 
+module.exports.deleteByUsername = (username, callback) => {
+  Repo.deleteMany({"owner.username": username}, (err, res) => {
+    if (err) {
+      callback(err);
+    } else {
+      console.log(res);
+      callback(null, res);
+    }
+  });
+};
+
 // module.exports.patchRepos = (data, callback) => {
 //   Repo.updateMany({_id: id}, data, (err, res) => {
 //     if (err) {
