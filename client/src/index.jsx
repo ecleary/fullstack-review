@@ -28,10 +28,10 @@ class App extends React.Component {
           repos: data
         });
         if (callback) {
-          callback(data);
-        } else {
-          console.log(data); // temp?
-        }
+          callback(null, data);
+        } //else {
+        //   console.log(data); // temp?
+        // }
       },
       error: (err) => {
         if (callback) {
@@ -51,10 +51,11 @@ class App extends React.Component {
       data: data,
       success: (data) => {
         if (callback) {
-          callback(data);
+          callback(null, data);
         } else {
           console.log(data);
         }
+        this.getData();
       },
       error: (err) => {
         if (callback) {
@@ -67,14 +68,14 @@ class App extends React.Component {
   };
 
   handleSearch (term, callback) {
-    console.log(`${term} was searched`);
+    // console.log(`${term} was searched`);
     this.postData(term, callback);
   };
 
   render () {
     const {repos} = this.state;
     return (<div>
-      <h1>Github Fetcher</h1>
+      <h1>GitHub Fetcher</h1>
       <RepoList repos={repos}/>
       <Search onSearch={this.handleSearch}/>
     </div>);

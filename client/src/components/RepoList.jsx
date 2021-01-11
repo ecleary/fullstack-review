@@ -7,8 +7,7 @@ const RepoList = (props) => {
 
   return (
     <div>
-      <h4> Repo List Component </h4>
-      There are {repos.length} repos.
+      <h4>There are {repos.length} repos.</h4>
       <table>
         <thead>
           <tr>

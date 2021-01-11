@@ -39,7 +39,7 @@ class Search extends React.Component {
     const {term} = this.state;
     return (<div>
       <h4>Add more repos!</h4>
-      Enter a github username: <input value={term} onChange={this.handleChange}/>
+      Enter a GitHub username: <input value={term} onChange={this.handleChange}/>
       <button onClick={this.handleSearch}> Add Repos </button>
     </div>) ;
   };
