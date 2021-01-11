@@ -9,13 +9,6 @@ module.exports.getData = (callback) => {
     } else {
       const data = transform.filterTop25Records(res);
       callback(null, data);
-      // transform.filterTop25Records(res, (err, data) => {
-      //   if (err) {
-      //     callback(err);
-      //   } else {
-      //     callback(null, data);
-      //   }
-      // });
     }
   });
 };

@@ -4,7 +4,8 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      term: ''
+      term: '',
+      notFound: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -35,7 +36,14 @@ class Search extends React.Component {
 
   clearInput(err) {
     if (err) {
-      console.error(err);
+      this.setState({
+        notFound: true
+      });
+      setTimeout(() => {
+        this.setState({
+          notFound: false
+        });
+      }, 3000);
     } else {
       this.setState({
         term: ''
@@ -44,12 +52,27 @@ class Search extends React.Component {
   };
 
   render() {
-    const {term} = this.state;
+    const {term, notFound} = this.state;
     return (<div>
       <h4>Add more repos!</h4>
-      Enter a GitHub username: <input value={term} onChange={this.handleChange}/>
-      <button onClick={this.handleSearch}> Add Repos </button>
-      <button onClick={this.handleRemove}> Remove Repos </button>
+      <table>
+        <tbody>
+          <tr>
+            <td style={{verticalAlign: 'top'}}>
+              Enter a GitHub username:
+            </td>
+            <td style={{verticalAlign: 'top'}}>
+              <input value={term} onChange={this.handleChange}/>
+              <br />
+              {notFound ? <span style={{color: 'red'}}>Username not found</span> : null}
+            </td>
+            <td style={{verticalAlign: 'top'}}>
+              <button onClick={this.handleSearch}> Add Repos </button>
+              <button onClick={this.handleRemove}> Remove Repos </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>) ;
   };
 }
